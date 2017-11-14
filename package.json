@@ -1,0 +1,24 @@
+{
+  "name": "mock.js",
+  "version": "1.0.0",
+  "description": "Interface configuration environment",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "devDependencies": {
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-gzip": "^0.1.0",
+    "koa-router": "^7.3.0",
+    "koa2-cors": "^2.0.4",
+    "mockjs": "^1.0.1-beta3",
+    "nodemon": "^1.12.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pxyi/mock.js.git"
+  },
+  "author": "phuhoang",
+  "license": "ISC"
+}
