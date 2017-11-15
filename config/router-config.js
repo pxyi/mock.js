@@ -1,10 +1,9 @@
 const fs = require('fs');
-
 const path = require('path');
 const join = path.join;
 
-/* 获取文件夹下所有文件 */
-function findSync(startPath) {
+/* ---------------- 获取文件夹下所有文件 ---------------- */
+const FindSync = (startPath) => {
 	let result = [];
 	function finder(path) {
 		let files = fs.readdirSync(path);
@@ -19,17 +18,16 @@ function findSync(startPath) {
 	return result;
 }
 
-let addControllers = (router) => {
-  console.log(__dirname)
-  let files = findSync(path.resolve(__dirname, '../routes'));
+/* ------------ 根据文件配置路由地址并定义404 ------------ */
+const AddControllers = (router) => {
+  let files = FindSync(path.resolve(__dirname, '../routes'));
   let fileJS = files.filter( (res) => {
-    return !res.startsWith('route_config') && res.endsWith('.js')
+    return res.endsWith('.js')
   });
   for(let res of fileJS){
     let mapping = require(`${res}`);
-    addMapping(router, mapping);
+    AddMapping(router, mapping);
   }
-  /* 定义 404页面 */
   router.get('*', async (ctx, next) => {
     ctx.body = {
       code: 1010,
@@ -38,8 +36,8 @@ let addControllers = (router) => {
   });
 }
 
-
-let addMapping = (router, mapping) => {
+/* -------------- 根据文件导出对象配置路由 -------------- */
+const AddMapping = (router, mapping) => {
   for(let url in mapping) {
     if(url.startsWith('GET ')){
       let path = url.substring(4);
@@ -57,8 +55,9 @@ let addMapping = (router, mapping) => {
 }
 
 
+/* ----------------- 导出路由配置信息 ----------------- */
 module.exports = () => {
   let router = require('koa-router')();
-  addControllers(router);
+  AddControllers(router);
   return router.routes();
 }
