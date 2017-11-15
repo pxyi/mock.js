@@ -13,8 +13,8 @@ npm start
 
 # 用浏览器打开 localhost:2800/get/api 是否返回
 {
-	code: 1000,
-	message: 'get请求成功'
+ code: 1000,
+ message: 'get请求成功'
 }
 ```
 
